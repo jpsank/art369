@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raw Bars Only</title>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="navbar">
+        <a href="index.html"><h1>Raw Bars Only</h1></a>
+        <a href="index.html">Home</a>
+    </div>
+
+    <div class="content">
+        {% if bar is defined %}
+        <!-- Bar page -->
+        {% set song = songs[bar["Song Id"]] %}
+        <h3><pre>{{ bar["Bar"] }}</pre></h3>
+        <p>Song title: {{ bar["Title"] }}</p>
+        <p>Artists: {{ bar["Artists"] }}</p>
+        <p>My comments: {{ bar["Comments"] }}</p>
+        {% endif %}
+
+        {% if bars is defined %}
+        <!-- Homepage -->
+        <div class="columns">
+            <img src="wordcloud.png" alt="Wordcloud" width="600px">
+            <ul>
+                {% for bar in bars %}
+                <li><b><pre><a href="{{ bar['Id'] }}.html">{{ bar["Bar"] }}</a></pre></b></li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="footer">
+        <p>Raw Bars Only &copy; 2024</p>
+    </div>
+
+</body>
