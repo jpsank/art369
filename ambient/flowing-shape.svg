@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+  <path fill="#ffffff" opacity="0.3">
+    <animate attributeName="d" dur="10s" repeatCount="indefinite"
+      values="
+        M0,50 C20,30 40,70 60,50 C80,30 100,70 100,50 L100,100 L0,100 Z;
+        M0,50 C20,70 40,30 60,50 C80,70 100,30 100,50 L100,100 L0,100 Z;
+        M0,50 C20,30 40,70 60,50 C80,30 100,70 100,50 L100,100 L0,100 Z
+      " />
+  </path>
+</svg>

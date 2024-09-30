@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ambient Experience</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(180deg, #a8edea 0%, #fed6e3 100%);
+      overflow: hidden;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: white;
+      text-align: center;
+      font-size: 3em;
+    }
+
+    .flowing-shape {
+      position: absolute;
+      text-align: center;
+      justify-content: center;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.2), transparent);
+      animation: flow 10s ease-in-out infinite;
+    }
+
+    @keyframes flow {
+      0% { transform: scale(1) translateY(45%); }
+      50% { transform: scale(1.2) translateY(5%); }
+      100% { transform: scale(1) translateY(45%); }
+    }
+
+    audio {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="flowing-shape">
+    <img src="flowing-shape.svg" alt="Flowing Shape">
+  </div>
+  <div class="container">
+    Breathe in... Breathe out...
+  </div>
+  <!-- <audio controls autoplay loop>
+    <source src="ambient-sound.mp3" type="audio/mp3">
+  </audio> -->
+</body>
+</html>
