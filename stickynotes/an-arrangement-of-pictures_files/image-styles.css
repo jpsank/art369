@@ -1,0 +1,154 @@
+img {
+  height: 200px;
+  display: inline-block;
+}
+
+div.images {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+#img-0 {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#img-1 {
+  position: absolute;
+  top: 50px;
+  left: 250px;
+}
+
+#img-2 {
+  position: absolute;
+  top: 100px;
+  left: 500px; 
+}
+
+#img-3 {
+  position: absolute;
+  top: 350px;
+  left: 250px;
+}
+
+#img-4 {
+  position: absolute;
+  top: 400px;
+  left: 0;
+}
+
+#img-5 {
+  position: absolute;
+  top: 580px;
+  left: 150px;
+}
+
+#img-6 {
+  position: absolute;
+  top: 700px;
+  left: 300px;
+}
+
+#img-7 {
+  position: absolute;
+  top: 800px;
+  left: 590px;
+}
+
+#img-8 {
+  position: absolute;
+  top: 990px;
+  left: 400px;
+}
+
+#img-9 {
+  position: absolute;
+  top: 1150px;
+  left: 270px;
+}
+
+#img-10 {
+  position: absolute;
+  top: 1330px;
+  left: 20px;
+}
+
+#img-11 {
+  position: absolute;
+  top: 1550px;
+  left: 350px;
+}
+
+#img-12 {
+  position: absolute;
+  top: 1760px;
+  left: 650px;
+}
+
+#img-13 {
+  position: absolute;
+  top: 1900px;
+  left: 400px;
+}
+
+#img-14 {
+  position: absolute;
+  top: 2100px;
+  left: 100px;
+}
+
+#img-15 {
+  position: absolute;
+  top: 2300px;
+  left: 500px;
+}
+
+#img-16 {
+  position: absolute;
+  top: 2500px;
+  left: 200px;
+}
+
+#img-17 {
+  position: absolute;
+  top: 2700px;
+  left: 0;
+}
+
+#img-18 {
+  position: absolute;
+  top: 2900px;
+  left: 300px;
+}
+
+#img-19 {
+  position: absolute;
+  top: 3100px;
+  left: 600px;
+}
+
+#img-20 {
+  position: absolute;
+  top: 3300px;
+  left: 200px;
+}
+
+#img-21 {
+  position: absolute;
+  top: 3500px;
+  left: 0;
+}
+
+#img-22 {
+  position: absolute;
+  top: 3700px;
+  left: 300px;
+}
+
+#img-23 {
+  position: absolute;
+  top: 3900px;
+  left: 600px;
+}

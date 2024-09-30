@@ -34,11 +34,50 @@ pre a {
     color: #222;
     text-decoration: none;
 }
+pre a:hover {
+    text-decoration: underline;
+}
 
 ul {
     list-style-type: none;
     padding: 0 10px;
 }
+
+div.bar {
+    padding: 50px 20px;
+}
+
+#dataviz {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+}
+#dataviz text {
+}
+#dataviz text:hover {
+    color: black;
+    transition: all ease-in-out 0.5s;
+}
+
+div.lyrics {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+}
+p.line {
+    margin: 0;
+    padding: 5px;
+    width: 100%;
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: bold;
+    background-color: #222;
+    color: #fff;
+}
+  
 
 div.content {
     margin: 0 auto;
