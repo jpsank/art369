@@ -10,6 +10,7 @@ openpyxl = "*"
 wordcloud = "*"
 numpy = "*"
 pillow = "*"
+nltk = "*"
 
 [dev-packages]
 

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Raw Bars Only</title>
     
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{% if word is defined %}../{% endif %}style.css">
 
     {% if bars is defined %}
     <!-- Load d3.js -->
@@ -17,8 +17,8 @@
 <body>
 
     <div class="navbar">
-        <a href="index.html"><h1>Raw Bars Only</h1></a>
-        <a href="index.html">Home</a>
+        <a href="{% if word is defined %}../{% endif %}index.html"><h1>Raw Bars Only</h1></a>
+        <a href="{% if word is defined %}../{% endif %}index.html">Home</a>
     </div>
 
     <div class="content">
@@ -29,8 +29,6 @@
                 <h3><pre>{{ bar["Bar"] }}</pre></h3>
                 <p><em>{{ bar["Title"] }}</em> by <em>{{ bar["Artists"] }}</em></p>
                 <p>My comments: {{ bar["Comments"] }}</p>
-                <br/>
-                <p>Full lyrics:</p>
             </div>
             <div class="lyrics">
                 {% for line in song["Full lyrics"].split("\n") %}
@@ -44,14 +42,26 @@
         <!-- Homepage -->
         <!-- Create a div where the graph will take place -->
         <div id="dataviz"></div>
-        <!-- <div class="columns">
+        <div class="columns">
             <img src="wordcloud.png" alt="Wordcloud" width="600px">
             <ul>
                 {% for bar in bars %}
                 <li><b><pre><a href="{{ bar['Id'] }}.html">{{ bar["Bar"] }}</a></pre></b></li>
                 {% endfor %}
             </ul>
-        </div> -->
+        </div>
+        {% endif %}
+
+        {% if word is defined %}
+        <!-- Create a page with the word and all lyrics containing that word -->
+        <h1 style="text-align: center;">{{word}}</h1>
+        <div class="lyrics">
+            {% for song_id, line in lines %}
+            <p class="line">
+                {{ line.replace('nigga', 'n****').replace('Nigga', 'N****') }}
+            </p>
+            {% endfor %}
+        </div>
         {% endif %}
     </div>
 
@@ -113,7 +123,7 @@
                 d3.select(this).style("fill", "red");
             })
             .on("click", function(d) {
-                window.location.href = d.text + '.html';
+                window.location.href = "words/" + d.text + '.html';
             });
     }
 </script>
