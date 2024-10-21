@@ -77,55 +77,65 @@
     var myWords = {{ words|tojson }};
     console.log(myWords);
     
-    // set the dimensions and margins of the graph
-    var margin = {top: 10, right: 10, bottom: 10, left: 10},
-        width = 1425 - margin.left - margin.right,
-        height = 792 - margin.top - margin.bottom;
-    
-    // append the svg object to the body of the page
-    var svg = d3.select("#dataviz").append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-      .append("g")
-        .attr("transform",
-              "translate(" + margin.left + "," + margin.top + ")");
-    
-    // Constructs a new cloud layout instance. It run an algorithm to find the position of words that suits your requirements
-    // Wordcloud features that are different from one word to the other must be here
-    var layout = d3.layout.cloud()
-      .size([width, height])
-      .words(myWords.map(function(d) { return {text: d.word, size:d.size}; }))
-      .padding(5)        //space between words
-      .rotate(function() { return ~~(Math.random() * 2) * 90; })
-      .fontSize(function(d) { return d.size; })      // font size of words
-      .on("end", draw);
-    layout.start();
-    
-    // This function takes the output of 'layout' above and draw the words
-    // Wordcloud features that are THE SAME from one word to the other can be here
-    function draw(words) {
-      svg
-        .append("g")
-          .attr("transform", "translate(" + layout.size()[0] / 2 + "," + layout.size()[1] / 2 + ")")
-          .selectAll("text")
-            .data(words)
-          .enter().append("text")
-            .style("font-size", function(d) { return d.size; })
-            .style("fill", "#222")
-            .attr("text-anchor", "middle")
-            .style("font-family", "Arial")
-            .attr("transform", function(d) {
-              return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
-            })
-            .text(function(d) { return d.text; })
-            .attr("cursor", "pointer")
-            .on("mouseover", function(d) {
-                d3.select(this).style("fill", "red");
-            })
-            .on("click", function(d) {
-                window.location.href = "words/" + d.text + '.html';
-            });
+    var svg, layout;
+    function resize() {
+        // set the dimensions and margins of the graph
+        var margin = {top: 10, right: 10, bottom: 10, left: 10},
+            width = window.innerWidth - margin.left - margin.right,
+            height = window.innerHeight - margin.top - margin.bottom;
+        
+        // append the svg object to the body of the page
+        // remove if already exists
+        if (svg) {
+            d3.select("svg").remove();
+        }
+        svg = d3.select("#dataviz").append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+                .attr("transform",
+                    "translate(" + margin.left + "," + margin.top + ")");
+        
+        // Constructs a new cloud layout instance. It run an algorithm to find the position of words that suits your requirements
+        // Wordcloud features that are different from one word to the other must be here
+        layout = d3.layout.cloud()
+            .size([width, height])
+            .words(myWords.map(function(d) { return {text: d.word, size:d.size}; }))
+            .padding(5)        //space between words
+            .rotate(function() { return ~~(Math.random() * 2) * 90; })
+            .fontSize(function(d) { return d.size; })      // font size of words
+            .random(function(d) { return 0.5; })
+            .on("end", draw);
+        layout.start();
+        
+        // This function takes the output of 'layout' above and draw the words
+        // Wordcloud features that are THE SAME from one word to the other can be here
+        function draw(words) {
+            svg
+                .append("g")
+                .attr("transform", "translate(" + layout.size()[0] / 2 + "," + layout.size()[1] / 2 + ")")
+                .selectAll("text")
+                    .data(words)
+                .enter().append("text")
+                    .style("font-size", function(d) { return d.size; })
+                    .style("fill", "#222")
+                    .attr("text-anchor", "middle")
+                    .style("font-family", "Arial")
+                    .attr("transform", function(d) {
+                    return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+                    })
+                    .text(function(d) { return d.text; })
+                    .attr("cursor", "pointer")
+                    .on("mouseover", function(d) {
+                        d3.select(this).style("fill", "red");
+                    })
+                    .on("click", function(d) {
+                        window.location.href = "words/" + d.text.replace(' ', '_') + '.html';
+                    });
+        }
     }
+    resize();
+    window.addEventListener('resize', resize);
 </script>
 {% endif %}
 

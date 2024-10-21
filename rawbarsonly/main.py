@@ -15,7 +15,7 @@ songs = {song['Id']: song for song in songs}
 
 # Normalize text
 def normalize_text(text):
-    return text.lower()
+    return text.lower().replace(',', '').replace('.', '').replace('!', '').replace('?', '').replace('(', '').replace(')', '').replace('[', '').replace(']', '').replace('{', '').replace('}', '').replace(':', '').replace(';', '')
 
 for i, song in songs.items():
     songs[i]['Full lyrics_normalized'] = normalize_text(song['Full lyrics'])
@@ -42,7 +42,7 @@ for bar in bars:
         f.write(template.render(bar=bar, songs=songs, song=song))
 
 # Index
-words = [{"word": word, "size": int(size*100)} for word, size in wc.words_.items() if int(size*100) > 0]
+words = [{"word": word, "size": 2 + int(size*100)} for word, size in wc.words_.items() if int(size*100) > 0]
 with open('frontend/index.html', 'w') as f:
     f.write(template.render(bars=bars_df.to_dict(orient='records'), songs=songs_df.to_dict(orient='records'), words=words))
 
@@ -57,5 +57,5 @@ for word in words:
         for line in lyrics.split('\n'):
             if word['word'].lower() in line.lower():
                 lines.append([song['Id'], line])
-    with open(f'frontend/words/{word["word"]}.html', 'w') as f:
+    with open(f'frontend/words/{word["word"].replace(' ','_')}.html', 'w') as f:
         f.write(template.render(word=word["word"], size=word["size"], lines=lines, songs=songs_df.to_dict(orient='records')))
