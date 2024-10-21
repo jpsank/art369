@@ -141,7 +141,9 @@ But I ain't beat that case, bitch, I did the race (Skrrt, skrrt)</a></pre></b></
                     .text(function(d) { return d.text; })
                     .attr("cursor", "pointer")
                     .on("mouseover", function(d) {
-                        d3.select(this).style("fill", "red");
+                        d3.select(this).transition().duration(0).style("fill", "red");
+                        // slowly change back to original color
+                        d3.select(this).transition().duration(5000).style("fill", "#222");
                     })
                     .on("click", function(d) {
                         window.location.href = "words/" + d.text.replace(' ', '_') + '.html';

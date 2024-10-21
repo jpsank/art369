@@ -18,7 +18,7 @@
 
     <div class="navbar">
         <a href="{% if word is defined %}../{% endif %}index.html"><h1>Raw Bars Only</h1></a>
-        <a href="{% if word is defined %}../{% endif %}index.html">Home</a>
+        <!-- <a href="{% if word is defined %}../{% endif %}index.html">Home</a> -->
     </div>
 
     <div class="content">
@@ -127,7 +127,9 @@
                     .text(function(d) { return d.text; })
                     .attr("cursor", "pointer")
                     .on("mouseover", function(d) {
-                        d3.select(this).style("fill", "red");
+                        d3.select(this).transition().duration(0).style("fill", "red");
+                        // slowly change back to original color
+                        d3.select(this).transition().duration(5000).style("fill", "#222");
                     })
                     .on("click", function(d) {
                         window.location.href = "words/" + d.text.replace(' ', '_') + '.html';
