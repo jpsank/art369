@@ -11,6 +11,7 @@ wordcloud = "*"
 numpy = "*"
 pillow = "*"
 nltk = "*"
+transformers = "*"
 
 [dev-packages]
 
