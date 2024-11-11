@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Animation Speed Control</title>
+    <style>
+        /* Basic layout and style */
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: #fff;
+        }
+
+        h1 {
+            margin: 10px;
+        }
+
+        /* Rotating cube styles */
+        .cube {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            transform-style: preserve-3d;
+            transform-origin: center;
+            animation: rotateCube 3s linear infinite;
+        }
+
+        .cube div {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 2px solid #333;
+        }
+
+        .front  { transform: translateZ(50px); background-color: #ff7f50; }
+        .back   { transform: rotateY(180deg) translateZ(50px); background-color: #4682b4; }
+        .left   { transform: rotateY(-90deg) translateZ(50px); background-color: #6a5acd; }
+        .right  { transform: rotateY(90deg) translateZ(50px); background-color: #3cb371; }
+        .top    { transform: rotateX(90deg) translateZ(50px); background-color: #ffd700; }
+        .bottom { transform: rotateX(-90deg) translateZ(50px); background-color: #ff69b4; }
+
+        /* Animation and slider style */
+        @keyframes rotateCube {
+            from { transform: rotateX(0deg) rotateY(0deg); }
+            to   { transform: rotateX(360deg) rotateY(360deg); }
+        }
+
+        .slider-container {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .slider-container input[type="range"] {
+            width: 300px;
+            margin: 10px 0;
+            accent-color: #ffd700;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Cuby Spinne</h1>
+    <div class="cube" id="cube">
+        <div class="front"></div>
+        <div class="back"></div>
+        <div class="left"></div>
+        <div class="right"></div>
+        <div class="top"></div>
+        <div class="bottom"></div>
+    </div>
+
+    <div class="slider-container">
+        <label for="speedSlider">Animation Speed: <span id="speedLabel">1x</span></label>
+        <input type="range" id="speedSlider" min="0.2" max="5" step="0.1" value="1">
+    </div>
+
+    <script>
+        const cube = document.getElementById('cube');
+        const speedSlider = document.getElementById('speedSlider');
+        const speedLabel = document.getElementById('speedLabel');
+
+        // Update the animation speed based on slider value
+        speedSlider.addEventListener('input', () => {
+            const speed = speedSlider.value;
+            speedLabel.textContent = `${speed}x`; // Update speed display
+            cube.style.animationDuration = `${3 / speed}s`; // Adjust animation duration
+        });
+    </script>
+
+</body>
+</html>
