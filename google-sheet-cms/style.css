@@ -1,0 +1,29 @@
+* {
+  font-family: arial;
+}
+
+fieldset {
+  border: 1px solid black;
+  margin: 0px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+label {
+  display: block;
+}
+
+.honeypot-field {
+  display: none;
+}
+
+.form-elements {
+  border: 1px solid black;
+}
+
+li {
+  margin-bottom: 1em;
+}
+
+.Timestamp {
+  display: none;
+}

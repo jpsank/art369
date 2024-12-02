@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="contact form example">
+  <title>Demo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div>This website posts and displays data from this <a href="https://docs.google.com/spreadsheets/d/186GUelqxoB1JbyGC4ePppoCWgt9Kr7miqHTqLJGD4R8/edit?usp=sharing">Google Sheet</a>.</div>
+
+  <div><a href="index.html">View data here</a></div>
+
+  <h1>Form to submit new data</h1>
+  
+  <!-- change the form action to your script url -->
+  <form class="gform pure-form pure-form-stacked" method="POST" data-email="example@email.net"
+  action="https://script.google.com/macros/s/AKfycbwjUIJJZg7zYpfGewyw2AjwEamoP4YD_HlL6wi_R5TXG0kut1DNmuS7oiJVH894D_IN9w/exec">
+    
+
+    <div class="form-elements">
+      <fieldset>
+        <label for="name">Name: </label>
+        <input id="name" name="name" placeholder="What your Mom calls you" />
+      </fieldset>
+
+      <fieldset>
+        <label for="message">Message: </label>
+        <textarea id="message" name="message" rows="10"
+        placeholder="Tell us what's on your mind..."></textarea>
+      </fieldset>
+
+      <fieldset class="pure-group">
+        <label for="color">Favourite Color: </label>
+        <input id="color" type="color" name="color" />
+      </fieldset>
+
+      <fieldset class="honeypot-field">
+        <label for="honeypot">To help avoid spam, utilize a Honeypot technique with a hidden text field; must be empty to submit the form! Otherwise, we assume the user is a spam bot.</label>
+        <input id="honeypot" type="text" name="honeypot" value="" />
+      </fieldset>
+
+      <button class="button-success pure-button button-xlarge">
+        Submit form
+      </button>
+    </div>
+
+    <!-- Customise the Thankyou Message People See when they submit the form: -->
+    <div class="thankyou_message" style="display:none;">
+      <h2>Thanks for your submission</h2>
+      <div><a href="index.html">See results</a></div>
+    </div>
+
+  </form>
+
+  <!-- Submit the Form to Google Using "AJAX" -->
+  <script data-cfasync="false" src="submit-data.js"></script>
+
+</body>
+</html>
