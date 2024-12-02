@@ -13,6 +13,7 @@ let population = [];
 const beatCount = 8; // Number of beats in each generation
 const beatsContainer = document.getElementById('beatsContainer');
 const patternLength = 32; // Length of each beat pattern
+let isPlaying = false;
 
 const timeoutIds = [];
 
@@ -47,33 +48,78 @@ function displayBeats() {
         beatDiv.className = 'beat';
         beatDiv.id = `beat${index}`;
         beatDiv.innerHTML = `
-            <h2>Beat ${index + 1}</h2>
-            <pre>${beat.kick}</pre>
-            <pre>${beat.snare}</pre>
-            <pre>${beat.hiHat}</pre>
-            <pre>${beat.bass}</pre>
-            <p>BPM: ${beat.bpm}</p>
-            <button onclick="playBeat(${index})">Play</button>
-            <input type="checkbox" id="selectBeat${index}"> Select
+            <h2>--------- Beat ${index + 1} ---- <span class="small">BPM ${beat.bpm}</span></h2>
+            <div class='row'>
+                <div class='pattern'>
+                    <pre class='kick'>${renderPattern(beat.kick, on="K")}</pre>
+                    <pre class='snare'>${renderPattern(beat.snare, on="S")}</pre>
+                    <pre class='hihat'>${renderPattern(beat.hiHat, on="H")}</pre>
+                    <pre class='bass'>${renderPattern(beat.bass, on="B")}</pre>
+                </div>
+                <button class="play" onclick="playBeat(${index})">▶</button>
+            </div>
+            <div class='row'>
+                <input type="checkbox" id="selectBeat${index}"><span class="small">SELECT FOR BREEDING</span>
+            </div>
         `;
         beatsContainer.appendChild(beatDiv);
     });
 }
 
+function renderPattern(pattern, on="■") {
+    return pattern.split('').map((step, i) => 
+        `<span class="i${i} ${step === '1' ? 'active' : ''}">${step === '1' ? on : ' '}</span>`
+    ).join('');
+}
+
 // Function to simulate playing a beat (console log in this case)
 function playBeat(index) {
-    console.log(`Playing Beat ${index + 1}:`, population[index]);
     const beatDiv = document.getElementById(`beat${index}`);
     const button = beatDiv.getElementsByTagName('button')[0];
-    if (button.innerText === 'Pause') {
+
+    // Pause the beat if it is already playing
+    if (button.innerText === '⏸') {
         pause();
-        button.innerText = 'Play';
+        button.classList.remove('playing');
+        button.innerText = '▶';
         return;
     }
+
+    // Prevent playing multiple beats simultaneously
+    if (isPlaying) {
+        return;
+    }
+
+    // Play the beat
+    isPlaying = true;
+    console.log(`Playing Beat ${index + 1}:`, population[index]);
+    button.classList.add('playing');
 
     // Play the sound effects simultaneously
     const beat = population[index];
     for (let i = 0; i < patternLength; i++) {
+
+        // Highlight the current step
+        timeoutIds.push(setTimeout(() => {
+            for (let el of beatDiv.getElementsByClassName(`i${i}`)) {
+                el.classList.add('current');
+            }
+        }, (60 / beat.bpm / 4) * i * 1000));
+        timeoutIds.push(setTimeout(() => {
+            for (let el of beatDiv.getElementsByClassName(`i${i}`)) {
+                el.classList.remove('current');
+            }
+        }, (60 / beat.bpm / 4) * (i+1) * 1000));
+
+        // Change background color of the beat pattern depending on the sound effect
+        timeoutIds.push(setTimeout(() => {
+            beatDiv.getElementsByClassName('kick')[0].style.backgroundColor = beat.kick[i] === '1' ? 'rgba(255, 0, 0, 0.5)' : '';
+            beatDiv.getElementsByClassName('snare')[0].style.backgroundColor = beat.snare[i] === '1' ? 'rgba(0, 255, 0, 0.5)' : '';
+            beatDiv.getElementsByClassName('hihat')[0].style.backgroundColor = beat.hiHat[i] === '1' ? 'rgba(0, 0, 255, 0.5)' : '';
+            beatDiv.getElementsByClassName('bass')[0].style.backgroundColor = beat.bass[i] === '1' ? 'rgba(255, 255, 0, 0.5)' : '';
+        }, (60 / beat.bpm / 4) * i * 1000));
+
+        // Play the sound effect if the pattern has a '1' at the current step
         if (beat.kick[i] === '1') {
             timeoutIds.push(setTimeout(() => sounds.kick.play(), (60 / beat.bpm / 4) * i * 1000));
         }
@@ -87,13 +133,33 @@ function playBeat(index) {
             timeoutIds.push(setTimeout(() => sounds.bass.play(), (60 / beat.bpm / 4) * i * 1000));
         }
     }
-    button.innerText = 'Pause';
+    timeoutIds.push(setTimeout(() => {
+        button.classList.remove('playing');
+        button.innerText = '▶';
+
+        // Reset the background color of the beat pattern
+        beatDiv.getElementsByClassName('kick')[0].style.backgroundColor = '';
+        beatDiv.getElementsByClassName('snare')[0].style.backgroundColor = '';
+        beatDiv.getElementsByClassName('hihat')[0].style.backgroundColor = '';
+        beatDiv.getElementsByClassName('bass')[0].style.backgroundColor = '';
+
+        isPlaying = false;
+    }, (60 / beat.bpm / 4) * patternLength * 1000));
+    button.innerText = '⏸';
 }
 
 // Function to pause the beat
 function pause() {
+    isPlaying = false;
     timeoutIds.forEach((id) => clearTimeout(id));
     timeoutIds.length = 0;
+    for (let el of document.querySelectorAll(`[class^="i"][class*="current"]`)) {
+        el.classList.remove('current');
+    }
+    // Reset the background color of the beat pattern
+    for (let el of document.querySelectorAll('.kick, .snare, .hihat, .bass')) {
+        el.style.backgroundColor = '';
+    }
 }
 
 // Function to evolve beats based on user selection

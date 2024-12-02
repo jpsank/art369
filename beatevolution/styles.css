@@ -1,7 +1,11 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #f4f4f4;
+    background-color: #333;
+    background-image: url('bg.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    background-blend-mode: overlay;
     margin: 0;
     padding: 20px;
 }
@@ -13,29 +17,101 @@ body {
 }
 
 .beat {
-    background: #fff;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    background: black;
     padding: 10px;
+    margin: 10px;
+}
+.beat h2 {
+    color: #ddd;
+    font-size: 24px;
+    margin: 0;
+    text-align: top;
+    line-height: 1em;
+}
+
+div.pattern {
     margin: 10px 0;
+}
+
+.beat pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: 16px;
+    text-align: left;
+    margin: 0;
+}
+.beat pre span {
+    color: grey;
+}
+.beat pre span.active {
+    color: #28a745;
+}
+
+.beat pre span.current {
+    background-color: #0056b3;
+    color: white;
 }
 
 button {
     padding: 10px 20px;
     font-size: 16px;
-    background-color: #007BFF;
+    background-color: black;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 0;
     cursor: pointer;
 }
-
 button:hover {
-    background-color: #0056b3;
+    background-color: #333;
+}
+
+input {
+    padding: 10px;
+    margin: 0 5px 0 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 0;
+    height: 18px;
+    width: 18px;
+    float: left;
+    cursor: pointer;
 }
 
 #beatsContainer {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+}
+
+#evolveButton {
+    margin-top: 20px;
+}
+
+button.play {
+    float: right;
+    width: 50px;
+    height: 40px;
+    color: #28a745;
+    line-height: 0;
+    font-size: 2em;
+    padding: 0;
+}
+
+button.play:hover {
+    color: #218838;
+    background-color: black;
+}
+button.playing {
+    color: #dc3545 !important;
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+span.small {
+    font-size: 12px;
+    color: grey;
 }
