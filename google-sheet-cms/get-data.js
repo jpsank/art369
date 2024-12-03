@@ -36,6 +36,9 @@ function handleData(response) {
       divKeyValue.className = key;
       // Set innerHTML as the value
       divKeyValue.innerHTML = item[key];
+      if (key === 'color') {
+        listItem.style.color = item[key];
+      }
       // Append the <div> element for the key-value pair to the <li> item
       listItem.appendChild(divKeyValue);
     });
