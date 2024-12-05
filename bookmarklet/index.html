@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bookmarklet</title>
+  <script src="bookmarklet.js"></script>
+</head>
+<body>
+  <h1>Bookmarklet</h1>
+  <p>Drag the link below to your bookmarks bar.</p>
+  <a href="javascript:(function()%7Blet%20style%20%3D%20document.createElement('style')%3B%0Alet%20css%20%3D%20%22body%20%7Bcolor%3A%20lightgrey%20!important%3B%20%7D%20p%20%7B%20color%3A%20whitesmoke%20!important%3B%20background-color%3A%20white%20!important%3B%20%7D%20p%3Ahover%20%7B%20color%3A%20black%20!important%3B%20%7D%20a%20%7B%20color%3A%20lightblue%20!important%3B%20%7D%20a%3Ahover%20%7B%20color%3A%20blue%20!important%3B%20%7D%20img%20%7B%20opacity%3A%200.02%20!important%3B%20%7D%20img%3Ahover%20%7B%20opacity%3A%200.8%20!important%3B%20%7D%20*%20%7Btransition%3A%201s%20ease-in-out%3B%7D%22%0Astyle.appendChild(document.createTextNode(css))%3B%0Adocument.getElementsByTagName('head')%5B0%5D.appendChild(style)%3B%7D)()%3B">slowreader</a>
+</body>
+</html>
